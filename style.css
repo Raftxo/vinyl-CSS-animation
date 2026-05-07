@@ -1,71 +1,117 @@
-.container {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.sphere {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 500px;
-    height: 500px;
-    background-image: url('./assets/vinyl-disc.png');
-    background-size: cover;
-    background-position: center;
-    border-radius: 50%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    animation: rotate 10s linear infinite;
-}
-
-@keyframes rotate {
-    0% {
-        transform: translate(-50%, -50%) rotate(0deg);
-    }
-
-    100% {
-        transform: translate(-50%, -50%) rotate(360deg);
-    }
-}
-
-.menu-left {
-    position: absolute;
-    top: 50%;
-    left: 20px;
-    transform: translateY(-50%);
-    text-align: left;
-}
-
-.menu-right {
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
-    text-align: right;
-}
-
-.menu-left a,
-.menu-right a {
-    display: block;
-    margin-bottom: 10px;
-    background-color: #007bff;
-    color: #ffffff;
-    padding: 10px;
-    text-decoration: none;
-    border-radius: 5px;
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden; /* Evita scroll horizontal no deseado */
 }
 
 #background-video {
-    position: absolute;
-    top: 0;
-    left: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+/* Layout para pantallas anchas (≥ 1300px) */
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.left-column, .right-column {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.center-column {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sphere {
+  width: 500px;
+  height: 500px;
+  aspect-ratio: 1 / 1;
+  background-image: url('./assets/vinyl-disc.png');
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  animation: rotate 10s linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.left-column a, .right-column a {
+  display: block;
+  background-color: #007bff;
+  color: #ffffff;
+  padding: 10px;
+  text-decoration: none;
+  border-radius: 5px;
+  text-align: center;
+  width: 75%;
+  max-width: 200px;
+}
+
+/* Layout para pantallas estrechas (< 1300px) */
+@media (max-width: 1299px) {
+  .container {
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .center-column {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
-    /* filter: grayscale(1); */
+    margin-bottom: 20px;
+    order: 1; /* Disco arriba */
+  }
+
+  .sphere {
+    width: 80vw; /* Tamaño relativo al ancho de la pantalla */
+    height: 80vw;
+    max-width: 500px;
+    max-height: 500px;
+  }
+
+  .left-column, .right-column {
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    order: 2; /* Botones abajo */
+  }
+
+  .left-column {
+    margin-bottom: 20px;
+  }
+
+  .left-column a, .right-column a {
+    width: 45%; /* Ancho relativo para las 2 columnas de botones */
+    max-width: 200px;
+  }
 }
